@@ -73,6 +73,7 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbook.yml"
     ansible.provisioning_path = "/ansible"
     ansible.compatibility_mode = "2.0"
+    ansible.verbose = false
   end
 
 end
