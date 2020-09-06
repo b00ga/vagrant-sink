@@ -13,14 +13,20 @@ Vagrant.configure("2") do |config|
   config.vm.define "centos8" do |machine|
     machine.vm.box = "generic/centos8"
   end
-  config.vm.define "fedora31" do |machine|
-    machine.vm.box = "bento/fedora-31"
+  config.vm.define "fedora32" do |machine|
+    machine.vm.box = "bento/fedora-32"
   end
   config.vm.define "ubuntu1604" do |machine|
     machine.vm.box = "ubuntu/xenial64"
   end
   config.vm.define "ubuntu1804" do |machine|
     machine.vm.box = "ubuntu/bionic64"
+  end
+  config.vm.define "ubuntu2004" do |machine|
+    machine.vm.box = "bento/ubuntu-20.04"
+    machine.vm.provision "ansible", type: "shell",
+      preserve_order: true,
+      inline: "echo 'Installing ansible...' && sudo apt install -y ansible"
   end
   config.vm.define "debian10" do |machine|
     machine.vm.box = "bento/debian-10"
