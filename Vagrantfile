@@ -40,6 +40,9 @@ Vagrant.configure("2") do |config|
       preserve_order: true,
       inline: "echo 'Installing ansible...' && sudo pacman -Sy archlinux-keyring --noconfirm"
   end
+  config.vm.define "alpine" do |machine|
+    machine.vm.box = "generic/alpine312"
+  end
   config.vm.define "freebsd11" do |machine|
     machine.vm.box = "generic/freebsd11"
     machine.vm.synced_folder "playbooks", "/ansible", type: "rsync"
@@ -67,6 +70,13 @@ Vagrant.configure("2") do |config|
     machine.vm.provision "ansible", type: "shell",
       preserve_order: true,
       inline: "echo 'Installing ansible...' && sudo pkgin -y update && pkgin -y install ansible"
+  end
+  config.vm.define "dragonflybsd" do |machine|
+    machine.vm.box = "generic/dragonflybsd5"
+    machine.vm.synced_folder "playbooks", "/ansible", type: "rsync"
+    machine.vm.provision "ansible", type: "shell",
+      preserve_order: true,
+      inline: "echo 'Cleaning up...' && sudo hammer prune-everything /"
   end
   config.vm.define "openindiana" do |machine|
     machine.vm.box = "Toasterson/openindiana-hipster"
