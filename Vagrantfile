@@ -16,6 +16,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "fedora32" do |machine|
     machine.vm.box = "bento/fedora-32"
   end
+  config.vm.define "fedora33" do |machine|
+    machine.vm.box = "bento/fedora-32"
+  end
   config.vm.define "ubuntu1604" do |machine|
     machine.vm.box = "ubuntu/xenial64"
   end
@@ -40,8 +43,11 @@ Vagrant.configure("2") do |config|
       preserve_order: true,
       inline: "echo 'Installing ansible...' && sudo pacman -Sy archlinux-keyring --noconfirm"
   end
-  config.vm.define "alpine" do |machine|
+  config.vm.define "alpine312" do |machine|
     machine.vm.box = "generic/alpine312"
+  end
+  config.vm.define "alpine313" do |machine|
+    machine.vm.box = "generic/alpine313"
   end
   config.vm.define "freebsd11" do |machine|
     machine.vm.box = "generic/freebsd11"
@@ -70,6 +76,13 @@ Vagrant.configure("2") do |config|
     machine.vm.provision "ansible", type: "shell",
       preserve_order: true,
       inline: "echo 'Installing ansible...' && sudo pkgin -y update && pkgin -y install ansible"
+  end
+  config.vm.define "netbsd9" do |machine|
+    machine.vm.box = "generic/netbsd9"
+    machine.vm.synced_folder "playbooks", "/ansible", type: "rsync"
+    machine.vm.provision "ansible", type: "shell",
+      preserve_order: true,
+      inline: "echo 'Installing ansible...' && sudo pkgin -y update && pkgin -y install ansible && ln -s /usr/pkg/bin/python3.8 /usr/bin/python3"
   end
   config.vm.define "dragonflybsd" do |machine|
     machine.vm.box = "generic/dragonflybsd5"
