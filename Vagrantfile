@@ -19,11 +19,11 @@ Vagrant.configure("2") do |config|
   config.vm.define "centos7" do |machine|
     machine.vm.box = "generic/centos7"
   end
+  config.vm.define "fedora39" do |machine|
+    machine.vm.box = "bento/fedora-39"
+  end
   config.vm.define "fedora38" do |machine|
     machine.vm.box = "bento/fedora-38"
-  end
-  config.vm.define "fedora37" do |machine|
-    machine.vm.box = "bento/fedora-37"
   end
   config.vm.define "ubuntu2204" do |machine|
     machine.vm.box = "ubuntu/jammy64"
